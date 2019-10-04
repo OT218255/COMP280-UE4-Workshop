@@ -3,6 +3,7 @@
 #include "UE4FPSProjectile.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Components/SphereComponent.h"
+#include "BaseEnemy.h"
 
 AUE4FPSProjectile::AUE4FPSProjectile() 
 {
@@ -36,7 +37,12 @@ void AUE4FPSProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, 
 	// Only add impulse and destroy projectile if we hit a physics
 	if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL) && OtherComp->IsSimulatingPhysics())
 	{
-		OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
+		ABaseEnemy * enemy = Cast<ABaseEnemy>(OtherActor);
+		if (enemy)
+		{
+			enemy->Attacked();
+			OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
+		}
 
 		Destroy();
 	}

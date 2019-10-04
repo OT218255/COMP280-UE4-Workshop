@@ -4,6 +4,7 @@
 #include "BaseEnemy.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SphereComponent.h"
+#include "Engine/Engine.h"
 
 // Sets default values
 ABaseEnemy::ABaseEnemy()
@@ -15,6 +16,8 @@ ABaseEnemy::ABaseEnemy()
 	MeshComp->SetSimulatePhysics(true);
 
 	RootComponent=MeshComp;
+
+	CurrentHealth=3;
 
 }
 
@@ -30,5 +33,15 @@ void ABaseEnemy::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+void ABaseEnemy::Attacked()
+{
+	CurrentHealth--;
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red,FString::Printf(TEXT("Health is %i"),CurrentHealth));
+	if (CurrentHealth==0)
+	{
+		Destroy();
+	}
 }
 

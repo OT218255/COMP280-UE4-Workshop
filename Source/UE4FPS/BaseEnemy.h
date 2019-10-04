@@ -22,8 +22,14 @@ protected:
 	UPROPERTY(VisibleAnywhere, Category=Enemy)
 	class UStaticMeshComponent * MeshComp;
 
+	
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+	virtual void Attacked();
+
+	UPROPERTY(EditAnywhere, Category=Enemy)
+	int32 CurrentHealth;
 
 };
