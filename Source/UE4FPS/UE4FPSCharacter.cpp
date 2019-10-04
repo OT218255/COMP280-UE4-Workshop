@@ -82,6 +82,8 @@ AUE4FPSCharacter::AUE4FPSCharacter()
 
 	// Uncomment the following line to turn motion controllers on by default:
 	//bUsingMotionControllers = true;
+
+	CurrentAmmo=10;
 }
 
 void AUE4FPSCharacter::BeginPlay()
@@ -143,6 +145,7 @@ void AUE4FPSCharacter::OnFire()
 	// try and fire a projectile
 	if (ProjectileClass != NULL)
 	{
+		CurrentAmmo--;
 		UWorld* const World = GetWorld();
 		if (World != NULL)
 		{
